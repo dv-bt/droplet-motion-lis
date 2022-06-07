@@ -1,0 +1,26 @@
+# Ignore .DS_Store files
+*.DS_Store
+
+# Ignore Jupyter Notebooks and checkpoints, as well as anything in Notebooks folder
+.ipynb_checkpoints
+*.ipynb
+Notebooks/
+Data/
+Results/
+
+# Ignore pycache
+__pycache__/
+*.pyc
+
+# Ignore PDF and html files of exported notebooks
+*.pdf
+*.html
+
+# Ignore vscode settings
+.vscode
+
+# Ignore log files
+*.log
+
+# Ignore todo file
+TODO.md
