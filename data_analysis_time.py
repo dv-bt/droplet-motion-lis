@@ -10,13 +10,18 @@ import pandas as pd
 import dropletmotion as dm
 
 
+# Check if the path to data folder has been passed
+if 'data_path' not in globals():
+    data_path = 'Data/' 
+
 # Load data and build database
 data_raw = []
-for file in glob.glob("Data/**/*exp_T*constant_velocity.csv", recursive=True):
-    if 'Excluded' not in file:
-        data_read = pd.read_csv(file)
-        sample_info = dm.utility.extract_info(pathlib.Path(file).stem)
-        data_raw.append(data_read.assign(**sample_info))
+for file in glob.glob(
+    data_path + "**/*exp_T*constant_velocity.csv", recursive=True
+):
+    data_read = pd.read_csv(file)
+    sample_info = dm.utility.extract_info(pathlib.Path(file).stem)
+    data_raw.append(data_read.assign(**sample_info))
 
 data_raw = pd.concat(data_raw, ignore_index=True).dropna(subset=['v'])
 
@@ -40,5 +45,5 @@ data_agg.columns = ['v_norm', 'v_norm_err']
 data_agg = data_agg.reset_index()
 
 # Save aggregated data
-data_agg.to_csv("Results/time_interval_aggregated.csv", index=False)
+data_agg.to_csv(data_path + "Results/time_interval_aggregated.csv", index=False)
 print('Time interval analysis complete')

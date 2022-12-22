@@ -6,7 +6,7 @@
 *.ipynb
 Notebooks/
 Data/
-Results/
+Data_example/
 
 # Ignore pycache
 __pycache__/

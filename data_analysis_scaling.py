@@ -34,13 +34,18 @@ def aggregate_data(data):
     return data_out
 
 
+# Check if the path to data folder has been passed
+if 'data_path' not in globals():
+    data_path = 'Data/' 
+
 # Load data and build database
 data_raw = []
-for file in glob.glob("Data/**/*exp_S*constant_velocity.csv", recursive=True):
-    if 'Excluded' not in file:
-        data_read = pd.read_csv(file)
-        sample_info = dm.utility.extract_info(pathlib.Path(file).stem)
-        data_raw.append(data_read.assign(**sample_info))
+for file in glob.glob(
+    data_path + "**/*exp_S*constant_velocity.csv", recursive=True
+):
+    data_read = pd.read_csv(file)
+    sample_info = dm.utility.extract_info(pathlib.Path(file).stem)
+    data_raw.append(data_read.assign(**sample_info))
 
 data_raw = pd.concat(data_raw, ignore_index=True).dropna(subset=['v'])
 data_raw['viscosity'] = pd.to_numeric(data_raw['viscosity'])
@@ -80,7 +85,7 @@ data_agg_plateau['kind'] = 'plateau'
 data_agg = pd.concat([data_agg_first, data_agg_plateau])
 
 # Save aggregated data
-data_agg.to_csv("Results/scaling_aggregated.csv", index=False)
+data_agg.to_csv(data_path + "Results/scaling_aggregated.csv", index=False)
 
 # Perform regression
 data_fit = (
@@ -92,5 +97,5 @@ data_fit = (
     .apply(dm.scaling.fit_score)
 )
 
-data_fit.to_csv("Results/scaling_regression.csv", index=False)
+data_fit.to_csv(data_path + "Results/scaling_regression.csv", index=False)
 print('Scaling analysis complete')

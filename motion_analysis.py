@@ -12,8 +12,6 @@ All results are saved to csv files.
 
 Optional arguments
 ------------------
--s --subset : str
-    Subset data with regular expression syntax
 -m --mode : 'new' or 'all'
     Analysis mode: restrict analysis to new files (i.e. those without a
     corresponding analysed file) or perform for all suitable files
@@ -37,8 +35,6 @@ import dropletmotion as dm
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument('-s', '--subset', required=False, default='',
-                help="Subset data with regex in filename")
 ap.add_argument('-m', '--mode', required=False, default='new',
                 help="Analysis mode: 'new' videos or 'all' videos")
 ap.add_argument('-dr', '--detect_roi', required=False,
@@ -48,6 +44,9 @@ ap.add_argument('-ns', '--needle_check_skip', required=False,
 ap.add_argument('-v', '--velocity_only', required=False,
                 action='store_true', help="Perform only velocity calculation")
 args = vars(ap.parse_args())
+
+# Script variables
+DATA_PATH = 'Data/'  # Path to the data folder
 
 # Build keyword aguments to pass to dm.core.DropletTrack.droplet_detect from
 # parsed values
@@ -67,7 +66,7 @@ logging.basicConfig(
 
 # %% Video analysis
 if not args['velocity_only']:
-    video_search = 'Data/**/*' + args['subset'] + '*.mp4'
+    video_search = DATA_PATH + '**/*.mp4'
     video_list = glob.glob(video_search, recursive=True)
 
     # Initialize counting variables
@@ -96,7 +95,7 @@ if not args['velocity_only']:
         print(error_count, 'errors. See log for details')
 
 # %% Velocity and acceleration analysis
-file_search = 'Data/**/*' + args['subset'] + 'position.csv'
+file_search = DATA_PATH + '**/*position.csv'
 
 # Exclude files with these keywords from the analysis
 file_list = glob.glob(file_search, recursive=True)
@@ -121,7 +120,7 @@ for file_path in tqdm.tqdm(file_list, desc='Analysing position files'):
 print(f'Velocity analysis completed. {file_count} files analyzed')
 
 # %% Update crossing point database
-crossing_search = 'Data/Crossing_offset/*cross_offset.tiff'
+crossing_search = DATA_PATH + 'Crossing_offset/*cross_offset.tiff'
 crossing_list = glob.glob(crossing_search)
 
 # Initialize loop variables
@@ -137,7 +136,7 @@ crossing_results = pd.concat(crossing_results_list, ignore_index=True)
 # Read manually obtained result
 try:
     crossing_results_manual = pd.read_csv(
-        'Data/Crossing_offset/crossing_offset_manual.csv'
+        DATA_PATH + 'Crossing_offset/crossing_offset_manual.csv'
     )
     crossing_results = pd.concat(
         [crossing_results, crossing_results_manual], ignore_index=True
@@ -145,10 +144,14 @@ try:
 except FileNotFoundError:
     pass
 
-crossing_results.to_csv('Data/crossing_offset_database.csv', index=False)
+crossing_results.to_csv(DATA_PATH + 'crossing_offset_database.csv', index=False)
 
 # %% Run data analysis script
 
-runpy.run_path('data_analysis_scaling.py')
-runpy.run_path('data_analysis_time.py')
-runpy.run_path('data_analysis_crossing.py')
+globals_pass = dict(data_path=DATA_PATH)
+
+runpy.run_path('data_analysis_scaling.py', init_globals=globals_pass)
+runpy.run_path('data_analysis_time.py', init_globals=globals_pass)
+runpy.run_path(
+    'data_analysis_crossing.py', init_globals=globals_pass, run_name='__main__'
+)

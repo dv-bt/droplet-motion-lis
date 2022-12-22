@@ -17,7 +17,7 @@ def build_cross_data(data_relative_path='') -> pd.DataFrame:
     Parameters
     ----------
     data_relative_path : str
-        Relative path to the Data folder from the current working directory.
+        Relative path to the data folder from the current working directory.
 
     Returns
     -------
@@ -25,15 +25,14 @@ def build_cross_data(data_relative_path='') -> pd.DataFrame:
         Database with raw data used for crossing analysis.
     """
 
-    glob_path = data_relative_path + "Data/**/*exp_C*acceleration.csv"
+    glob_path = data_relative_path + "**/*exp_C*acceleration.csv"
 
     # Load data and build database
     data_raw = []
     for file in glob.glob(glob_path, recursive=True):
-        if 'Excluded' not in file:
-            data_read = pd.read_csv(file)
-            sample_info = dm.utility.extract_info(pathlib.Path(file).stem)
-            data_raw.append(data_read.assign(**sample_info))
+        data_read = pd.read_csv(file)
+        sample_info = dm.utility.extract_info(pathlib.Path(file).stem)
+        data_raw.append(data_read.assign(**sample_info))
 
     data_raw = pd.concat(data_raw, ignore_index=True).dropna(subset=['v'])
     data_raw.rename(columns={'volume': 'vol_probe'}, inplace=True)
@@ -55,7 +54,7 @@ def build_cross_data(data_relative_path='') -> pd.DataFrame:
 
     # Read offset database and assign values to data
     offset = pd.read_csv(
-        data_relative_path + 'Data/crossing_offset_database.csv'
+        data_relative_path + 'crossing_offset_database.csv'
     )
     offset['trace_diam'] = (
         offset
@@ -69,26 +68,30 @@ def build_cross_data(data_relative_path='') -> pd.DataFrame:
         .base_diameter
         .transform(np.std, ddof=1)
     )
-    data = data_raw.merge(offset)
+    data_out = data_raw.merge(offset)
 
     # Scale position to crossing region
-    data['x_cent'] = data.x - data.x_cross
-    data['x_cent_adv'] = data.x_adv - data.x_cross
-    data['x_cent_rec'] = data.x_rec - data.x_cross
+    data_out['x_cent'] = data_out.x - data_out.x_cross
+    data_out['x_cent_adv'] = data_out.x_adv - data_out.x_cross
+    data_out['x_cent_rec'] = data_out.x_rec - data_out.x_cross
 
     # Calculate position zeroed on center of crossing peak
-    data['x_zeroed'] = (
-        data
+    data_out['x_zeroed'] = (
+        data_out
         .groupby(['name', 'spot_ID'], as_index=False, group_keys=False)
         .apply(dm.crossing.center_peak)
     )
 
-    return data
+    return data_out
 
 
 if __name__ == "__main__":
 
-    data = build_cross_data()
+    # Check if the path to data folder has been passed
+    if 'data_path' not in globals():
+        data_path = 'Data/'
+
+    data = build_cross_data(data_path)
 
     # Analyse main peak
     grouping = [
@@ -120,5 +123,5 @@ if __name__ == "__main__":
     peaks_agg = peaks_agg.reset_index()
 
     # Save output
-    peaks_agg.to_csv("Results/crossing_peaks.csv", index=False)
+    peaks_agg.to_csv(data_path + "Results/crossing_peaks.csv", index=False)
     print('Crossing analysis complete')
