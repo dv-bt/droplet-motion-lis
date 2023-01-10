@@ -19,7 +19,7 @@ Analysis of droplet motion on liquid-infused surface (LIS).
 
 ## Introduction
 
-The code in this repository was developed to support the analysis of experimental data of water droplets moving on inclined liquid infused surfaces (LIS). The context, goal, and results of this investigation are reported in detail in [[Bottone 2022]](#Bottone2022).
+The code in this repository was developed to support the analysis of experimental data of water droplets moving on inclined liquid infused surfaces (LIS). The context, goal, and results of this investigation are reported in detail in [[Bottone 2023]](#Bottone2023).
 
 ## Usage
 
@@ -60,7 +60,7 @@ Raw data is processed according to the following pipeline:
 
    1. Experimental videos (showing a series of droplets moving on a surface) are processed to extract droplet **position** $x$ *vs* time $t$ signals
    2. **Velocity** $v$ and, if required, **acceleration** $a$ are calculated from the $x$ *vs* $t$ signals
-   3. The $v$ and $a$ signals are analysed to extract the features relevant for the kind of experiment performed, which are described in detail in [[Bottone 2022]](#Bottone2022)
+   3. The $v$ and $a$ signals are analysed to extract the features relevant for the kind of experiment performed, which are described in detail in [[Bottone 2023]](#Bottone2023)
 
 ### Step 1: droplet detection and tracking
 
@@ -85,7 +85,7 @@ $$
 
 Higher values of $\delta$ are representative of a noisier signal, and a higher $\lambda$ is consequently appropriate.
 
-In crossing experiments (see [[Bottone 2022]](#Bottone2022)) $\lambda$ is fixed at 10<sup>−1</sup>, lower than what predicted by the above criterion for the relevant signals, in order to preserve detail at the cost of a slightly noisier derivative. Acceleration $a$ of these signals is calculated using the same approach and parameters by differentiating $v$.
+In crossing experiments (see [[Bottone 2023]](#Bottone2023)) $\lambda$ is fixed at 10<sup>−1</sup>, lower than what predicted by the above criterion for the relevant signals, in order to preserve detail at the cost of a slightly noisier derivative. Acceleration $a$ of these signals is calculated using the same approach and parameters by differentiating $v$.
 
 #### Constant velocity validation
 
@@ -111,7 +111,7 @@ The longest portion of signal fulfilling both conditions was taken as the consta
 
 ### Step 3: Feature analysis
 
-The $v$ and $a$ signals obtained in step 2 are analysed to extract the features relevant for the performed experiment. A thorough description of these features is provided in [[Bottone 2022]](#Bottone2022) and the methods for their extraction are documented in the [droplemotion package readme](dropletmotion/README.md). 
+The $v$ and $a$ signals obtained in step 2 are analysed to extract the features relevant for the performed experiment. A thorough description of these features is provided in [[Bottone 2023]](#Bottone2023) and the methods for their extraction are documented in the [droplemotion package readme](dropletmotion/README.md). 
 
 Additional details are provided here for the more complex procedures.
 
@@ -147,7 +147,7 @@ All the custom code was written by [Davide Bottone](mailto:davide.bottone@chem.u
 
 ## References
 
-<a id="Bottone2022">[Bottone 2022]</a>
+<a id="Bottone2023">[Bottone 2023]</a>
 Bottone, D. & Seeger, S.
 Droplet memory on liquid infused surfaces, *in preparation*
 

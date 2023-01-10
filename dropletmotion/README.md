@@ -18,7 +18,7 @@ A Python package to analyse the motion of water droplets on Liquid Infused Surfa
 
 ## Introduction
 
-The `dropletmotion` package was developed to support the analysis of droplet dynamics on LIS, fabricated on silicone (polysilsesquioxane) nanostructures, described in [[Bottone 2022]](#Bottone2022). As such, it contains the code used for the following data pipeline:
+The `dropletmotion` package was developed to support the analysis of droplet dynamics on LIS, fabricated on silicone (polysilsesquioxane) nanostructures, described in [[Bottone 2023]](#Bottone2023). As such, it contains the code used for the following data pipeline:
 
    0. Experiments yield videos showing a series of droplets moving on a surface (**raw data**)
    1. Videos are processed to extract droplet **position** $x$ *vs* time $t$ signals
@@ -148,7 +148,7 @@ Additionally, `dropletmotion` depends on the following packages:
 
 ## References
 
-<a id="Bottone2022">[Bottone 2022]</a>
+<a id="Bottone2023">[Bottone 2023]</a>
 Bottone, D. & Seeger, S.
 Droplet memory on liquid infused surfaces, *in preparation*
 
