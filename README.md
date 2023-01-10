@@ -14,6 +14,7 @@ Analysis of droplet motion on liquid-infused surface (LIS).
     - [Constant velocity validation](#constant-velocity-validation)
   - [Step 3: Feature analysis](#step-3-feature-analysis)
     - [Automation of regression bounds](#automation-of-regression-bounds)
+- [Requirements](#requirements)
 - [Authorship](#authorship)
 - [References](#references)
 
@@ -140,6 +141,10 @@ $$
 where $N_{\mathrm{low}, i}$ and $N_{\mathrm{high}, i}$ are the number of points in the $i^\mathrm{th}$ pair of regressions, while $\overline{R}^2_{\mathrm{low},i}$ and $\overline{R}^2_{\mathrm{high},i}$ are the adjusted coefficients of determination of the $i^\mathrm{th}$ pair of regressions.
 
 The $\overline{R}^2$ terms makes sure that **condition 3** is considered. On the other hand, the $\ln N$ terms takes into account **condition 2**, but with diminishing returns as the regression moves away from the extremes, as per **condition 1**. The pair of regressions with the highest score is selected. This procedure is implemented in `dropletmotion.scaling.fit_score`.
+
+## Requirements
+
+A complete list of the packages in the virtual environment used for the development of this code is included in [environment.yml](environment.yml).
 
 ## Authorship
 
