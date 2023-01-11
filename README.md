@@ -39,12 +39,12 @@ droplet-motion-lis
 │   ├── Crossing_offset/
 │   ├── Videos/
 │   │   └── Extracted data/
+│   ├── Results/
+│   │   ├── crossing_peaks.csv
+│   │   ├── scaling_aggregated.csv
+│   │   ├── scaling_regression.csv
+│   │   └── time_interval_aggregated.csv
 │   └── crossing_offset_database.csv
-├── Results/
-│   ├── crossing_peaks.csv
-│   ├── scaling_aggregated.csv
-│   ├── scaling_regression.csv
-│   └── time_interval_aggregated.csv
 ├── README.md
 ├── data_analysis_crossing.py
 ├── data_analysis_scaling.py
