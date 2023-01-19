@@ -79,8 +79,8 @@ The value of the regularization parameter $\lambda$ was chosen based on the data
 
 $$
 \begin{cases}
-    \lambda = 10^{-4}\delta^{2.3} \quad &\text{if}\ \delta \geq 10\ \mathrm{pts\ mm^{-1}}\, ,\\
-    \lambda = 10^{-3} &\text{if}\ \delta < 10\ \mathrm{pts\ mm^{-1}}\, .
+    \lambda = 10^{-4}\delta^{2.3} \quad &\text{if}\ \delta \geq 10\ \mathrm{pts\ mm^{-1}}\\
+    \lambda = 10^{-3} &\text{if}\ \delta < 10\ \mathrm{pts\ mm^{-1}}
 \end{cases}
 $$
 
@@ -95,20 +95,19 @@ Some experiments rely on the existence of a constant terminal velocity of the dr
 Each signal is divided in 10 pieces and each combination of contiguous pieces containing at least 3 elements is validated.
 This is achieved by imposing two conditions, both of which have to be fulfilled:
 
-1. The average relative gradient $\lang \partial_x v \rang$ evaluated over the relevant portion of the signal is lower than 1%, as:
+1. The average relative gradient $⟨ \partial_x v ⟩$ evaluated over the relevant portion of the signal is lower than 1%, as in the following equation, where $N$ is the number of recorded points in the relevant portion of the signal and $\partial v / \partial x$ is calculated by centred finite differences:
 
-    $$
-    \lang \partial_xv \rang = \frac{1}{N} \sum_i^N\frac{\partial v}{\partial x}\frac{1}{v}\bigg|_{x_i} < 0.01\, ,
-    $$
+$$
+⟨ \partial_xv ⟩ = \frac{1}{N} \sum_i^N \frac{\partial v}{\partial x}\frac{1}{v} \bigg\rvert_{x_i} < 0.01
+$$
 
-    where $N$ is the number of recorded points in the relevant portion of the signal. The $\partial v / \partial x$ term is calculated by centred finite differences.
+2. The standard deviation of velocity $\sigma_v$, relative to the average velocity $⟨ v ⟩$, is lower than 4%, as:
 
-2. The standard deviation of velocity $\sigma_v$, relative to the average velocity $\lang v \rang$, is lower than 4%, as:
-   $$
-   \frac{\sigma_v}{\lang v \rang} < 0.04\, .
-   $$
+$$
+\frac{\sigma_v}{⟨ v ⟩} < 0.04
+$$
 
-The longest portion of signal fulfilling both conditions was taken as the constant velocity for that droplet; in case of a tie, the portion with the lower $\lang \partial_x v \rang$ was taken. If no suitable portion of the signal was found, the signal was discarded.
+The longest portion of signal fulfilling both conditions was taken as the constant velocity for that droplet; in case of a tie, the portion with the lower $⟨ \partial_x v ⟩$ was taken. If no suitable portion of the signal was found, the signal was discarded.
 
 ### Step 3: Feature analysis
 
@@ -121,21 +120,24 @@ Additional details are provided here for the more complex procedures.
 Two scaling regimes are found in the driving force $F_\mathrm{d}$ _vs_ friction $F_\mathrm{f}$ curves: one at low _v_ (and $F_\mathrm{f}$) and one at high _v_ [[Keiser 2017]](#Keiser2017). The selection of bounds used for regression of the two regimes was automated on the basis of the following considerations:
 
 1. Fitting at very low and very high $F_\mathrm{f}$ is usually very accurate;
-1. A fit with more data points is better than a fit with fewer data points;
-1. Regression accuracy should be as high as possible;
-1. The upper limit for the low _v_ regime $F_\mathrm{f,low}$ can at most coincide with the lower limit for the high _v_ regime $F_\mathrm{f,high}$:
-    $$
-    F_\mathrm{f, low} \leq F_\mathrm{f, high}\,;
-    $$
-1. More strictly, the critical transition friction $F_\mathrm{f, crit}$ must be between the two limits of condition 4:
-    $$
-    F_\mathrm{f, low} \leq F_\mathrm{f, crit} \leq F_\mathrm{f, high}\, .
-    $$
+2. A fit with more data points is better than a fit with fewer data points;
+3. Regression accuracy should be as high as possible;
+4. The upper limit for the low _v_ regime $F_\mathrm{f,low}$ can at most coincide with the lower limit for the high _v_ regime $F_\mathrm{f,high}$:
+
+$$
+F_\mathrm{f, low} \leq F_\mathrm{f, high}
+$$
+
+5. More strictly, the critical transition friction $F_\mathrm{f, crit}$ must be between the two limits of condition 4:
+
+$$
+F_\mathrm{f, low} \leq F_\mathrm{f, crit} \leq F_\mathrm{f, high}
+$$
 
 Taking into account the above conditions, both regimes are fitted at the same time for each combination of points that fulfils **condition 4** and that includes at least the 3 respective extreme points (**condition 1**). $F_\mathrm{f, crit}$ is calculated for each of these pairs, as the intersection between the two regimes, and a score $S_i$ is calculated for those that fulfil **condition 5** as:
 
 $$
-S_i = \overline{R}^2_{\mathrm{low},i}\ln N_{\mathrm{low},i} + \overline{R}^2_{\mathrm{high},i}\ln N_{\mathrm{high},i}\, ,
+S_i = \overline{R}^2_{\mathrm{low},i}\ln N_{\mathrm{low},i} + \overline{R}^2_{\mathrm{high},i}\ln N_{\mathrm{high},i}
 $$
 
 where $N_{\mathrm{low}, i}$ and $N_{\mathrm{high}, i}$ are the number of points in the $i^\mathrm{th}$ pair of regressions, while $\overline{R}^2_{\mathrm{low},i}$ and $\overline{R}^2_{\mathrm{high},i}$ are the adjusted coefficients of determination of the $i^\mathrm{th}$ pair of regressions.
