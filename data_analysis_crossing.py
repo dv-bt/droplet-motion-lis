@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     # Check if the path to data folder has been passed
     if 'data_path' not in globals():
-        data_path = 'Data/'
+        data_path = 'Data_example/'
 
     data = build_cross_data(data_path)
 

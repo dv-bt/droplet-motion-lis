@@ -12,7 +12,7 @@ import dropletmotion as dm
 
 # Check if the path to data folder has been passed
 if 'data_path' not in globals():
-    data_path = 'Data/' 
+    data_path = 'Data_example/' 
 
 # Load data and build database
 data_raw = []

@@ -46,7 +46,7 @@ ap.add_argument('-v', '--velocity_only', required=False,
 args = vars(ap.parse_args())
 
 # Script variables
-DATA_PATH = 'Data/'  # Path to the data folder
+DATA_PATH = 'Data_example/'  # Path to the data folder
 
 # Build keyword aguments to pass to dm.core.DropletTrack.droplet_detect from
 # parsed values

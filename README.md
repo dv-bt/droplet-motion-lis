@@ -1,6 +1,6 @@
 # droplet-motion-lis
 
-Analysis of droplet motion on liquid-infused surface (LIS).
+Analysis of droplet motion on liquid-infused surfaces (LIS).
 
 ### Table of contents
 
@@ -35,7 +35,7 @@ A detailed description of the analytical steps is contained in the [Methods](#me
 ```
 droplet-motion-lis
 ├── dropletmotion/
-├── Data/
+├── Data_example/
 │   ├── Crossing_offset/
 │   ├── Videos/
 │   │   └── Extracted data/
