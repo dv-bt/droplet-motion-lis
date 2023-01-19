@@ -156,6 +156,9 @@ def fit_score(data,  x='friction', y='force', n_low=1, n_high=0.5) -> pd.DataFra
         regressions and sorted by best match.
     '''
 
+    # Copy dataframe not to modify input
+    data = data.copy()
+    
     # Set error labels
     x_err = x + '_err'
     y_err = y + '_err'
