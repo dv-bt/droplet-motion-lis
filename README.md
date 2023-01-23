@@ -1,4 +1,6 @@
-# droplet-motion-lis
+# droplet-motion-lis 
+
+[![DOI](https://zenodo.org/badge/590921403.svg)](https://zenodo.org/badge/latestdoi/590921403)
 
 Analysis of droplet motion on liquid-infused surfaces (LIS).
 
