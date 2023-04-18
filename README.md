@@ -158,7 +158,7 @@ All the custom code was written by [Davide Bottone](mailto:davide.bottone@chem.u
 
 <a id="Bottone2023">[Bottone 2023]</a>
 Bottone, D. & Seeger, S.
-Droplet memory on liquid infused surfaces, *in preparation*
+Droplet memory on liquid infused surfaces, *Langmuir* **2023**, [doi.org/10.1021/acs.langmuir.3c00289](https://doi.org/10.1021/acs.langmuir.3c00289)
 
 <a id="Chartrand2011">[Chartrand 2011]</a>
 Chartrand, R.
